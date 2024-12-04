@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortuna Casino</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ff4500;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 20px;
+        }
+        .roulette {
+            margin: 50px auto;
+            width: 300px;
+            height: 300px;
+            border: 5px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: conic-gradient(
+                #ff0000 0% 25%, 
+                #000000 25% 50%, 
+                #ff0000 50% 75%, 
+                #000000 75% 100%
+            );
+            position: relative;
+        }
+        .roulette .pointer {
+            width: 10px;
+            height: 100px;
+            background-color: #fff;
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #ff4500;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #ff6347;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fortuna Casino 🎰</h1>
+        <p>¡Bienvenido! Juega, gana y disfruta de los mejores juegos de azar.</p>
+    </header>
+    
+    <nav>
+        <a href="#" onclick="showSection('home')">Inicio</a>
+        <a href="#" onclick="showSection('roulette')">Ruleta</a>
+        <a href="#" onclick="showSection('promotions')">Promociones</a>
+        <a href="#" onclick="showSection('contact')">Contacto</a>
+    </nav>
+
+    <div class="content">
+        <div id="home">
+            <h2>Bienvenido a Fortuna Casino</h2>
+            <p>Explora nuestras secciones de juegos y promociones. ¡Diviértete jugando a lo grande!</p>
+        </div>
+
+        <div id="roulette" class="hidden">
+            <h2>🎮 Juego de Ruleta</h2>
+            <p>¡Gira la ruleta y descubre si tu suerte está de tu lado!</p>
+            <div class="roulette">
+                <div class="pointer"></div>
+            </div>
+            <button onclick="spinRoulette()">Girar Ruleta</button>
+            <div class="result" id="result">Presiona el botón para girar la ruleta</div>
+        </div>
+
+        <div id="promotions" class="hidden">
+            <h2>🎉 Promociones</h2>
+            <p>¡Aprovecha nuestras promociones exclusivas para jugadores frecuentes!</p>
+        </div>
+
+        <div id="contact" class="hidden">
+            <h2>📞 Contacto</h2>
+            <p>Para consultas, comunícate con nosotros a: soporte@fortuna-casino.com</p>
+        </div>
+    </div>
+
+    <footer>
+        © 2024 Fortuna Casino - Todos los derechos reservados.
+    </footer>
+
+    <script>
+        function showSection(section) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.content > div');
+            sections.forEach(sec => sec.classList.add('hidden'));
+
+            // Mostrar la sección seleccionada
+            document.getElementById(section).classList.remove('hidden');
+        }
+
+        function spinRoulette() {
+            // Opciones posibles de la ruleta
+            const options = ["Rojo", "Negro", "Rojo", "Negro"];
+            const randomIndex = Math.floor(Math.random() * options.length);
+            const result = options[randomIndex];
+
+            // Simula el giro
+            const roulette = document.querySelector('.roulette');
+            const spins = Math.floor(Math.random() * 5) + 5; // 5 a 10 vueltas
+            const degrees = spins * 360 + randomIndex * 90; // 90° por sector
+
+            // Animar la ruleta
+            roulette.style.transition = "transform 3s ease-out";
+            roulette.style.transform = `rotate(${degrees}deg)`;
+
+            // Espera a que termine el giro
+            setTimeout(() => {
+                document.getElementById("result").textContent = `Resultado: ${result}`;
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
